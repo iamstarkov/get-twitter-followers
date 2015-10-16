@@ -4,10 +4,10 @@
   "description": "get followers for target username",
   "main": "index.es5.js",
   "scripts": {
-    "coverage": "isparta cover _mocha index.js -- --require babel/register",
+    "coverage": "isparta cover _mocha index.js -- --timeout 1000000 --require babel/register",
     "precoveralls": "npm run coverage",
     "coveralls": "coveralls < coverage/lcov.info",
-    "test": "mocha --require babel/register",
+    "test": "mocha --timeout 1000000 --require babel/register",
     "tdd": "npm test -- --watch",
     "transpile": "babel index.js --out-file index.es5.js",
     "prepublish": "npm run transpile",
@@ -33,9 +33,15 @@
     "assert": "*",
     "babel": "*",
     "coveralls": "*",
+    "get-twitter-info": "^1.0.4",
     "isparta": "*",
     "mocha": "*",
     "npm-run-all": "*",
-    "rimraf": "*"
+    "rimraf": "*",
+    "twitter-tokens": "^1.0.2"
+  },
+  "dependencies": {
+    "ramda": "^0.18.0",
+    "twit": "^2.1.0"
   }
 }
