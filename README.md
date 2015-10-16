@@ -16,28 +16,41 @@
 ```js
 import getTwitterFollowers from 'get-twitter-followers';
 
-getTwitterFollowers('unicorns'); // unicorns
+getTwitterFollowers(tokens, 'jsunderhood', (err, followers) => {
+  if (err) throw err;
+  console.log(followers);
+});
 ```
 
 ## API
 
-### getTwitterFollowers(input, [options])
+### getTwitterFollowers(tokens, username, cb)
 
-#### input
+#### tokens
+
+*Required*  
+Type: `Object`
+
+Valid [Twitter developer credentials (tokens)][how-to-get]
+in the form of a set of consumer and access tokens/keys.
+You can use [twitter-tokens][tokens], to simplify getting tokens.
+
+[how-to-get]: https://iamstarkov.com/get-twitter-tokens/
+[tokens]: https://www.npmjs.com/package/twitter-tokens
+
+#### username
 
 *Required*  
 Type: `String`
 
-Lorem ipsum.
+Twitter username.
 
-#### options
+#### cb(err, info)
 
-##### foo
+*Required*  
+Type: `Function`
 
-Type: `Boolean`  
-Default: `false`
-
-Lorem ipsum.
+Callback for you.
 
 ## License
 
