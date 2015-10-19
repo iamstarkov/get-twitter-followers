@@ -1,5 +1,5 @@
 import Twitter from 'twit';
-import { merge, isEmpty, concat } from 'ramda';
+import { merge, isEmpty, concat, last } from 'ramda';
 
 function accumulate(get, options, followers, cb) {
   console.log('accumulate');
@@ -10,9 +10,13 @@ function accumulate(get, options, followers, cb) {
     if (cursor === '0') {
       return cb(null, followers);
     }
-    console.log('new followers', concat(followers, users));
-    console.log('new options', merge({ cursor }, options));
-    return accumulate(get, merge({ cursor }, options), concat(followers, users), cb);
+    var accumulatedFollowers = concat(followers, users);
+    var nextOptions = merge(options, { cursor });
+    console.log('accumulatedFollowers length', accumulatedFollowers.length);
+    console.log('last accumulatedFollowers screen_name', last(accumulatedFollowers).screen_name);
+    console.log('new cursor', cursor);
+    console.log('nextOptions cursor', nextOptions.cursor);
+    return accumulate(get, nextOptions, accumulatedFollowers, cb);
   });
 }
 
