@@ -3,18 +3,13 @@ import { merge, isEmpty, concat } from 'ramda';
 
 function accumulate(get, options, followers, cb) {
   console.log('accumulate');
-  get(options, (err, { users, next_cursor_str }=res) => {
+  get(options, (err, { users, next_cursor_str: cursor } = res) => {
     console.log('get');
     if (err) return cb(err);
-
-    if (next_cursor_str === '0') {
+    if (cursor === '0') {
       return cb(null, followers);
     }
-
-    const accumulatedFollowers = concat(followers, users);
-    const nextOptions = merge({ cursor: next_cursor_str }, options);
-    console.log(nextOptions);
-    return accumulate(get, nextOptions, accumulatedFollowers, cb);
+    return accumulate(get, merge({ cursor }, options), concat(followers, users), cb);
   });
 }
 
