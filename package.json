@@ -1,6 +1,6 @@
 {
   "name": "get-twitter-followers",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "get followers for target username",
   "main": "index.es5.js",
   "scripts": {
