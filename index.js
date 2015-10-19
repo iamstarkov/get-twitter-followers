@@ -6,9 +6,12 @@ function accumulate(get, options, followers, cb) {
   get(options, (err, { users, next_cursor_str: cursor } = res) => {
     console.log('get');
     if (err) return cb(err);
+    console.log('users.length', users.length);
     if (cursor === '0') {
       return cb(null, followers);
     }
+    console.log('new followers', concat(followers, users));
+    console.log('new options', merge({ cursor }, options));
     return accumulate(get, merge({ cursor }, options), concat(followers, users), cb);
   });
 }
