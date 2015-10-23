@@ -17,13 +17,13 @@ function ids2userObjects(tokens, ids, cb) {
   const userLookupPromises = compose(map(usersLookupPromise.bind(null, tokens)), splitEvery(100));
   const handler = (...userObjects) => cb(null, flatten(userObjects));
   // cb(new Error('YOLO'))
-  Promise.all(userLookupPromises(ids))
+  return Promise.all(userLookupPromises(ids))
     .then(handler, err => {
       console.log(err);
-      cb(err);
+      return cb(err);
     }).catch(err => {
       console.log(err);
-      cb(err);
+      return cb(err);
     });
 }
 
