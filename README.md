@@ -18,18 +18,9 @@ import getTwitterFollowers from 'get-twitter-followers';
 
 getTwitterFollowers(tokens, 'jsunderhood', (err, followers) => {
   if (err) throw err;
-  console.log(followers);
+  console.log(followers); // "User Objects" array https://dev.twitter.com/overview/api/users
 });
 ```
-
-**Limitation:** as far as Twitter API allow you only [15 requests per 15 minute
-window][rates-limit] for this [endpoint][endpoint], then this module
-will allow you to grab [3000 (15*200)][calc] followers with information about
-them before you will face `Rate limit exceeded` error.
-
-[calc]: https://www.google.com/search?q=180*200%3D&ie=utf-8&oe=utf-8&gws_rd=cr&ei=FwIlVpzbE8aCygP9roioCg
-[rates-limit]: https://dev.twitter.com/rest/public/rate-limits
-[endpoint]: https://dev.twitter.com/rest/reference/get/followers/list
 
 ## API
 
