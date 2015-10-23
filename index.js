@@ -17,7 +17,14 @@ function ids2userObjects(tokens, ids, cb) {
   const userLookupPromises = compose(map(usersLookupPromise.bind(null, tokens)), splitEvery(100));
   const handler = (...userObjects) => cb(null, flatten(userObjects));
   // cb(new Error('YOLO'))
-  return Promise.all(userLookupPromises(ids)).then(handler, console.log.bind(console)).catch(console.log.bind(console));
+  Promise.all(userLookupPromises(ids))
+    .then(handler, err => {
+      console.log(err);
+      cb(err);
+    }).catch(err => {
+      console.log(err);
+      cb(err);
+    });
 }
 
 function accumulate(get, options, followersIds, tokens, cb) {
