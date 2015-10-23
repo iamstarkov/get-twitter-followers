@@ -5,9 +5,9 @@ import tokens from 'twitter-tokens';
 
 it('should getTwitterFollowers', done => {
   getTwitterInfo(tokens, 'vjeux', (err, { followers_count } = info) => {
-    if (err) throw err;
+    if (err) done(new Error(err));
     getTwitterFollowers(tokens, 'vjeux', (err, followers) => {
-      if (err) throw err;
+      if (err) done(new Error(err));
       equal(followers.length, followers_count);
       equal(typeof followers[0], 'object');
       done();
