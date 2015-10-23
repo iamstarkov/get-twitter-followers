@@ -8,7 +8,6 @@ it('should getTwitterFollowers', done => {
     if (err) throw err;
     getTwitterFollowers(tokens, 'vjeux', (err, followers) => {
       if (err) throw err;
-      console.log(followers_count);
       equal(followers.length, followers_count);
       equal(typeof followers[0], 'object');
       done();
