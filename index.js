@@ -19,7 +19,7 @@ function ids2userObjects(tokens, ids, cb) {
 function accumulate(get, options, followersIds, tokens, cb) {
   get(options, (err, { ids, next_cursor_str: cursor } = res) => {
     if (err) return cb(err);
-    var accumulatedFollowersIds = concat(followersIds, ids);
+    const accumulatedFollowersIds = concat(followersIds, ids);
     if (cursor === '0') {
       return ids2userObjects(tokens, accumulatedFollowersIds, cb);
     }
