@@ -35,11 +35,10 @@
     "coveralls": "*",
     "get-twitter-info": "^1.0.4",
     "isparta": "*",
-    "mocha": "*",
     "npm-run-all": "*",
     "rimraf": "*",
-    "tap-spec": "^4.1.0",
-    "tape": "^4.2.2",
+    "tap-spec": "*",
+    "tape": "*",
     "twitter-tokens": "^1.0.2"
   },
   "dependencies": {
