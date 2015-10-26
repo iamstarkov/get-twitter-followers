@@ -3,7 +3,7 @@ import getTwitterFollowers from './index';
 import getTwitterInfo from 'get-twitter-info';
 import tokens from 'twitter-tokens';
 
-test('should getTwitterFollowers', ({ equal, end } = t) => {
+test('getTwitterFollowers', { timeout: 30000 }, ({ equal, end } = t) => {
   getTwitterInfo(tokens, 'vjeux', (err, { followers_count } = info) => {
     if (err) done(new Error(err));
     getTwitterFollowers(tokens, 'vjeux', (err, followers) => {
