@@ -5,10 +5,7 @@ function usersLookupPromise(tokens, ids) {
   return new Promise((resolve, reject) => {
     const client = new Twitter(tokens);
     const options = { user_id: join(',', ids), include_entities: false };
-    const handler = (err, res) => {
-      console.log(!err ? 'resolve' : 'reject');
-      !err ? resolve(res) : reject(err)
-    };
+    const handler = (err, res) => { !err ? resolve(res) : reject(err) };
     client.post('users/lookup', options, handler);
   });
 }
@@ -16,15 +13,7 @@ function usersLookupPromise(tokens, ids) {
 function ids2userObjects(tokens, ids, cb) {
   const userLookupPromises = compose(map(usersLookupPromise.bind(null, tokens)), splitEvery(100));
   const handler = (...userObjects) => cb(null, flatten(userObjects));
-  // cb(new Error('YOLO'))
-  return Promise.all(userLookupPromises(ids))
-    .then(handler, err => {
-      console.log(err);
-      return cb(err);
-    }).catch(err => {
-      console.log(err);
-      return cb(err);
-    });
+  return Promise.all(userLookupPromises(ids)).then(handler).catch(cb);
 }
 
 function accumulate(get, options, followersIds, tokens, cb) {
