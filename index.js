@@ -1,35 +1,29 @@
 import Twitter from 'twit';
 import { merge, flatten, concat, splitEvery, join, map, compose } from 'ramda';
 
-function usersLookupPromise(tokens, ids) {
-  return new Promise((resolve, reject) => {
-    const client = new Twitter(tokens);
-    const options = { user_id: join(',', ids), include_entities: false };
-    const handler = (err, res) => { !err ? resolve(res) : reject(err) };
-    client.post('users/lookup', options, handler);
-  });
+function usersLookupPromise(client, ids) {
+  const options = { user_id: join(',', ids), include_entities: false };
+  return client.post('users/lookup', options).then(({ data }) => data);
 }
 
-function ids2userObjects(tokens, ids, cb) {
-  const userLookupPromises = compose(map(usersLookupPromise.bind(null, tokens)), splitEvery(100));
-  const handler = (...userObjects) => cb(null, flatten(userObjects));
-  return Promise.all(userLookupPromises(ids)).then(handler).catch(cb);
+function ids2userObjects(client, ids) {
+  const userLookupPromises = compose(map(usersLookupPromise.bind(null, client)), splitEvery(100));
+  const handler = (...userObjects) => flatten(userObjects);
+  return Promise.all(userLookupPromises(ids)).then(handler);
 }
 
-function accumulate(get, options, followersIds, tokens, cb) {
-  get(options, (err, { ids, next_cursor_str: cursor } = res) => {
-    if (err) return cb(err);
+function accumulate(client, options, followersIds) {
+  return client.get('followers/ids', options).then(({ data: { ids, next_cursor_str: cursor } }) => {
     const accumulatedFollowersIds = concat(followersIds, ids);
     if (cursor === '0') {
-      return ids2userObjects(tokens, accumulatedFollowersIds, cb);
+      return ids2userObjects(client, accumulatedFollowersIds);
     }
-    return accumulate(get, merge(options, { cursor }), accumulatedFollowersIds, tokens, cb);
+    return accumulate(client, merge(options, { cursor }), accumulatedFollowersIds);
   });
 }
 
-export default function getTwitterFollowers(tokens, username, cb) {
+export default function getTwitterFollowers(tokens, username) {
   const client = new Twitter(tokens);
-  const get = client.get.bind(client, 'followers/ids');
   const options = { screen_name: username, stringify_ids: true, count: 5000 };
-  return accumulate(get, options, [], tokens, cb);
+  return accumulate(client, options, []);
 };
