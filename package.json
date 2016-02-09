@@ -31,7 +31,9 @@
   "homepage": "https://github.com/iamstarkov/get-twitter-followers#readme",
   "devDependencies": {
     "assert": "*",
-    "babel": "*",
+    "babel-cli": "^6.5.1",
+    "babel-plugin-add-module-exports": "^0.1.2",
+    "babel-preset-es2015": "^6.5.0",
     "coveralls": "*",
     "get-twitter-info": "^1.0.4",
     "isparta": "*",
