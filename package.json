@@ -42,7 +42,7 @@
     "twitter-tokens": "^1.0.2"
   },
   "dependencies": {
-    "ramda": "^0.18.0",
-    "twit": "^2.1.0"
+    "ramda": "^0.19.1",
+    "twit": "^2.2.2"
   }
 }
