@@ -4,7 +4,7 @@
   "description": "get followers for target username",
   "main": "index.es5.js",
   "scripts": {
-    "coverage": "babel-node ./node_modules/.bin/isparta cover test.js | tap-spec",
+    "coverage": "babel-node ./node_modules/.bin/isparta cover test.js",
     "precoveralls": "npm run coverage",
     "coveralls": "coveralls < coverage/lcov.info",
     "test": "babel-node test | tap-spec",
