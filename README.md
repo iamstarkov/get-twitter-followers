@@ -16,15 +16,16 @@
 ```js
 import getTwitterFollowers from 'get-twitter-followers';
 
-getTwitterFollowers(tokens, 'jsunderhood', (err, followers) => {
-  if (err) throw err;
+getTwitterFollowers(tokens, 'jsunderhood').then(followers => {
   console.log(followers); // "User Objects" array https://dev.twitter.com/overview/api/users
 });
 ```
 
 ## API
 
-### getTwitterFollowers(tokens, username, cb)
+### getTwitterFollowers(tokens, username)
+
+Return a promise that resolves to followers.
 
 #### tokens
 
@@ -44,13 +45,6 @@ You can use [twitter-tokens][tokens], to simplify getting tokens.
 Type: `String`
 
 Twitter username.
-
-#### cb(err, info)
-
-*Required*  
-Type: `Function`
-
-Callback for you.
 
 ## License
 
