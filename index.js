@@ -26,4 +26,4 @@ export default function getTwitterFollowers(tokens, username) {
   const client = new Twitter(tokens);
   const options = { screen_name: username, stringify_ids: true, count: 5000 };
   return accumulate(client, options, []);
-};
+}
