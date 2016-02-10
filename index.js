@@ -1,5 +1,5 @@
 import Twitter from 'twit';
-import { merge, flatten, concat, splitEvery, join, map, compose } from 'ramda';
+import { merge, flatten, concat, splitEvery, join, map, pipe } from 'ramda';
 
 function usersLookupPromise(client, ids) {
   const options = { user_id: join(',', ids), include_entities: false };
@@ -7,7 +7,7 @@ function usersLookupPromise(client, ids) {
 }
 
 function ids2userObjects(client, ids) {
-  const userLookupPromises = compose(map(usersLookupPromise.bind(null, client)), splitEvery(100));
+  const userLookupPromises = pipe(splitEvery(100), map(usersLookupPromise.bind(null, client)));
   const handler = (...userObjects) => flatten(userObjects);
   return Promise.all(userLookupPromises(ids)).then(handler);
 }
