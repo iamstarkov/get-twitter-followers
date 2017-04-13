@@ -32,11 +32,11 @@
   "devDependencies": {
     "assert": "*",
     "babel-cli": "^6.5.1",
-    "babel-plugin-add-module-exports": "^0.1.2",
+    "babel-plugin-add-module-exports": "^0.2.1",
     "babel-preset-es2015": "^6.5.0",
     "coveralls": "*",
-    "eslint": "^1.10.3",
-    "eslint-config-airbnb": "^5.0.0",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^14.1.0",
     "eslint-plugin-require-path-exists": "^1.1.5",
     "get-twitter-info": "^2.0.1",
     "isparta": "*",
@@ -45,10 +45,10 @@
     "tap-spec": "*",
     "tape": "*",
     "twitter-tokens": "^1.0.2",
-    "babel-eslint": "^4.1.8"
+    "babel-eslint": "^7.2.2"
   },
   "dependencies": {
-    "ramda": "^0.19.1",
+    "ramda": "^0.23.0",
     "twit": "^2.2.2"
   }
 }
